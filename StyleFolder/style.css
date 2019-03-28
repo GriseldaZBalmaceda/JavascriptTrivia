@@ -54,3 +54,22 @@ font-size: 80px;
     text-align: center;
     color:#B6DCFC;
 }
+a:link{
+    text-decoration: none;
+}
+a{
+    color: black;
+}
+li{
+    list-style: none;
+}
+li:before{
+    content: "\f00d"; /* FontAwesome Unicode Question Mark*/
+    /* content: "\f00c"; */ /* FontAwesome Unicode Checkmark */
+    /* content: "\f00d"; */ /* FontAwesome Unicode X */
+    /* content: "\f128"; */ /* FontAwesome Unicode Question Mark*/
+    font-family: FontAwesome;
+    display: inline-block;
+    margin-left: -1.3em; /* same as padding-left set on li */
+    width: 1.3em; /* same as padding-left set on li */
+  }
