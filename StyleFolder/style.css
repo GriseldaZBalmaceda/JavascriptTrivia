@@ -64,10 +64,9 @@ li{
     list-style: none;
 }
 li:before{
-    content: "\f00d"; /* FontAwesome Unicode Question Mark*/
     /* content: "\f00c"; */ /* FontAwesome Unicode Checkmark */
     /* content: "\f00d"; */ /* FontAwesome Unicode X */
-    /* content: "\f128"; */ /* FontAwesome Unicode Question Mark*/
+    content: "\f128"; /* FontAwesome Unicode Question Mark*/
     font-family: FontAwesome;
     display: inline-block;
     margin-left: -1.3em; /* same as padding-left set on li */
