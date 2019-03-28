@@ -60,10 +60,14 @@ a:link{
 a{
     color: black;
 }
+ul{
+    line-height: 65px;
+    padding: 20px;
+}
 li{
     list-style: none;
 }
-li:before{
+li::before{
     /* content: "\f00c"; */ /* FontAwesome Unicode Checkmark */
     /* content: "\f00d"; */ /* FontAwesome Unicode X */
     content: "\f128"; /* FontAwesome Unicode Question Mark*/
