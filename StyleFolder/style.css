@@ -1,4 +1,3 @@
-
 /* 
 Fonts that I thought would look good for our application.
 
@@ -8,71 +7,121 @@ font-family: 'Istok Web', sans-serif;
 font-family: 'Playfair Display SC', serif;
 font-family: 'Barlow Semi Condensed', sans-serif; */
 
-body{
-    margin:0;
-}
-.dark-blue{
-    color:#2699FB
+body {
+    margin: 0;
 }
 
-.light-blue{
-    color:#B6DCFC
+.dark-blue {
+    color: #2699FB
 }
-.title{
-font-family: 'Markazi Text', serif;
-margin: auto;
-text-align: center;
-display: block;
-margin-left: auto;
-margin-right: auto;
-font-size: 80px;
+
+.light-blue {
+    color: #B6DCFC
 }
-.box{
-    background-color:#2699FB;
+
+.title {
+    font-family: 'Markazi Text', serif;
+    margin: auto;
+    text-align: center;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 80px;
+}
+
+.box {
+    background-color: #2699FB;
     min-height: 100px;
     min-width: 100px;
-    
+
 }
-.float-left{
+
+.float-left {
     float: left;
 }
-.float-right{
+
+.float-right {
     float: right;
 }
-.footer{
-    width:100%;
+
+.footer {
+    width: 100%;
     display: inline-block;
     position: fixed;
-    bottom:0;
+    bottom: 0;
 }
-.fas{
+
+.fas {
     font-size: 40px;
- 
+
 }
-.arrow{
+
+.arrow {
     padding: 25px;
     text-align: center;
-    color:#B6DCFC;
+    color: #B6DCFC;
 }
-a:link{
+
+a:link {
     text-decoration: none;
 }
-a{
+
+a {
     color: black;
 }
-ul{
+
+ul {
     line-height: 65px;
     padding: 20px;
 }
-li{
+
+li {
     list-style: none;
 }
-li::before{
-    /* content: "\f00c"; */ /* FontAwesome Unicode Checkmark */
-    /* content: "\f00d"; */ /* FontAwesome Unicode X */
-    content: "\f128"; /* FontAwesome Unicode Question Mark*/
+
+li::before {
+    /* content: "\f00c"; */
+    /* FontAwesome Unicode Checkmark */
+    /* content: "\f00d"; */
+    /* FontAwesome Unicode X */
+    /* content: "\f128"; */
+    /* FontAwesome Unicode Question Mark*/
     font-family: FontAwesome;
     display: inline-block;
-    margin-left: -1.3em; /* same as padding-left set on li */
-    width: 1.3em; /* same as padding-left set on li */
-  }
+    margin-left: -1.3em;
+    /* same as padding-left set on li */
+    width: 1.3em;
+    /* same as padding-left set on li */
+}
+
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    margin-top: 20%;
+    margin: auto;
+    width: 40%;
+    min-height: 335px;
+}
+
+.answerList {
+    width: 50%;
+    margin: auto;
+}
+
+.answerButton {
+     border:none;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    border-radius: 0px;
+    margin: 10px 0px 10px 0px;
+    background-color: white;
+    min-height: 75px;
+    width: 100%;
+    transition-duration: 0.5s;
+}
+.answerButton:hover{
+    background-color: #2699FB;
+    color: white
+}
+.text {
+    text-align: center;
+    padding: 20%;
+}
