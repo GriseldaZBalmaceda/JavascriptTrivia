@@ -13,15 +13,7 @@
 </head>
 
 <body>
-    <!--example of how the layout works-->
-    <!-- <div class="row">
-        <div class="col-sm-12 col-6" style="background-color:red">
-            hello
-        </div>
-        <div class="col-sm-12 col-6 "style="background-color:blue">
-                hello
-            </div>
-    </div> -->
+
     <div class="title ">Javascript Trivia</div>
 
     <!-- Begin Question List Column-->
@@ -55,7 +47,7 @@
 
     <div class="float-right">
         <ul>
-            <li><a href="#" id="ql_q1"><i style="font-size: 20px;color:#00bd56;margin-left: -1.3em" class="fas fa-check"></i>Question 1</a></li>
+            <li><a href="#" id="ql_q1">Question 1</a></li>
             <li><a href="#" id="ql_q2">Question 2</a></li>
             <li><a href="#" id="ql_q3">Question 3</a></li>
             <li><a href="#" id="ql_q4">Question 4</a></li>
@@ -71,35 +63,31 @@
 
     <!--Card that contains question -->
     <div class="questionCard card">
-        <div class="text">
-            <p>In JavaScript you cannot use these reserved words as variables, labels, or function names?</p>
+        <div class="quiz">
+          <div class="text">
+            <p data-bind="text:currentQuestion().question"></p>
+        </div>   
+
+        
         </div>
+       
     </div>
 
     <!--Answers-->
-    <div class="answerList">
+    <div data-bind="foreach:currentQuestion().choices" class="answerList">
         <button class="answerButton">
-            <p>Reserved Words</p>
-        </button>
-        <button class="answerButton">
-            <p>Strings</p>
-        </button>
-        <button class="answerButton">
-            <p>Data Types</p>
-        </button>
-        <button class="answerButton">
-            <p>Numbers</p>
-        </button>
+            <p data-bind="text:$data"></p>
+         </button>
     </div>
 
     <!--footer-->
     <div class="footer">
-        <div class="box float-left">
+        <div data-bind="click:previousQuestion" class="box float-left">
             <div class="arrow">
                 <i class="fas fa-arrow-left"></i>
             </div>
         </div>
-        <div class="box float-right">
+        <div data-bind="click:nextQuestion()" class="box float-right">
             <div class="arrow">
                 <i class="fas fa-arrow-right"></i>
             </div>
@@ -107,6 +95,8 @@
 
 
     </div>
+    <script type="text/Javascript" src="knockout.js"></script>
+    <script type="text/JavaScript" src="main.js"></script>
 </body>
 
 </html>
