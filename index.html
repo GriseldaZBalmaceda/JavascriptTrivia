@@ -66,7 +66,7 @@
 
     <!--Answers-->
     <div data-bind="foreach:currentQuestion().choices" class="answerList">
-        <button class="answerButton">
+        <button data-bind="click:selected, enable:select, css:{selected:select}" class="answerButton">
             <p data-bind="text:choice"></p>
          </button>
     </div>

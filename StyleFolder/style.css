@@ -125,3 +125,6 @@ li::before {
     text-align: center;
     padding: 20%;
 }
+.selected{
+  background-color: #2699FB
+}
