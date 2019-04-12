@@ -46,17 +46,8 @@
 -->
 
     <div class="float-right">
-        <ul>
-            <li><a href="#" id="ql_q1">Question 1</a></li>
-            <li><a href="#" id="ql_q2">Question 2</a></li>
-            <li><a href="#" id="ql_q3">Question 3</a></li>
-            <li><a href="#" id="ql_q4">Question 4</a></li>
-            <li><a href="#" id="ql_q5">Question 5</a></li>
-            <li><a href="#" id="ql_q6">Question 6</a></li>
-            <li><a href="#" id="ql_q7">Question 7</a></li>
-            <li><a href="#" id="ql_q8">Question 8</a></li>
-            <li><a href="#" id="ql_q9">Question 9</a></li>
-            <li><a href="#" id="ql_q10">Question 10</a></li>
+        <ul data-bind="foreach:quiz">
+            <li data-bind="click:showQuestion($index())">Question <span data-bind="text:$index() + 1"></span></li>
         </ul>
     </div>
     <!-- End Question List Column-->
