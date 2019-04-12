@@ -13,7 +13,7 @@ var quizModelView = function () {
         new quizViewModel("Which of the following is used to add an HTML element using JavaScript?", ["document.createElement(element)", "document.appendChild(element)", "document.write(text)", "document.replaceChild(new, old)"], "document.appendChild(element)"),
         new quizViewModel("In JavaScript, which of the following is used to comment lines:", ["/* and */", "//", "Data Types", "<!-- and  -->"], "<!-- and  -->"),
     ];
-    self.guesses = ko.observableArray([]);
+  
     self.correct = ko.observable(0)
     self.click = ko.observable(0)
 
@@ -65,7 +65,7 @@ var quizModelView = function () {
 
 
     }
-    console.log(self.guesses())
+   
 }
 
 var choicesViewModel = function (choice) {
@@ -84,7 +84,7 @@ var quizViewModel = function (question, choiceOptions, answer) {
     self.question = question;
     self.choices = ko.observableArray([])
     for (var i = 0; i < choiceOptions.length; i++) {
-        self.choices.push(new choicesViewModel(choiceOptions[i]));
+        self.choices().push(new choicesViewModel(choiceOptions[i]));
     }
 }
 
