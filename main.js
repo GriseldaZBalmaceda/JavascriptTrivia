@@ -1,6 +1,8 @@
 var quizModelView = function () {
     self = this;
     self.index = ko.observable(0);
+    self.duringQuiz=ko.observable(true)
+    self.final=ko.observable(false)
     self.quiz = [
         new quizViewModel("In JavaScript you cannot use what reserved words as variables, labels, or function names?", ["Reserved Words", "Strings", "Data Types", "Number"], "Reserved Words"),
         new quizViewModel("Which of the following is used for declaring variables in a function, but is block scoped?", ["Null", "var", "const", "let"], "let"),
@@ -13,19 +15,20 @@ var quizModelView = function () {
         new quizViewModel("Which of the following is used to add an HTML element using JavaScript?", ["document.createElement(element)", "document.appendChild(element)", "document.write(text)", "document.replaceChild(new, old)"], "document.appendChild(element)"),
         new quizViewModel("In JavaScript, which of the following is used to comment lines:", ["/* and */", "//", "Data Types", "<!-- and  -->"], "<!-- and  -->"),
     ];
-  
+    self.guesses = ko.observableArray([]);
     self.correct = ko.observable(0)
-    self.click = ko.observable(0)
+    self.click = ko.observable(false)
 
     self.currentQuestion = ko.observable(self.quiz[0]);
     self.currentAnswer = ko.observable(self.quiz[0].answer)
 
     self.checkAnswer = function (guess) {
-        if (guess === self.currentAnswer()) {
+        if (guess.choice === self.currentAnswer()) {
+            
             self.correct(self.correct() + 1)
             console.log('correct')
         } else {
-            console.log('false')
+            self.currentQuestion().correct(true)
         }
 
     }
@@ -42,27 +45,43 @@ var quizModelView = function () {
         self.currentAnswer(self.quiz[self.index()].answer)
         self.index(self.index() - 1)
     }
-    self.showQuestion = function (index) {
-        self.currentQuestion(self.quiz[index])
-    }
+    // self.showQuestion = function (index) {
+    //     self.index(index)
+    //     self.currentQuestion(self.quiz[self.index()])
+    //     self.currentAnswer(self.quiz[self.index()].answer)
+    
+    // }
 
     self.selected = function (choiceSelected) {
-        if (self.click() < 1) {
-
+        if (choiceSelected.clicked() === false) {
+            choiceSelected.clicked(true);
             self.currentQuestion().choices().forEach(function (choice) {
+
                 choice.select(false)
+                choiceSelected.select(true)
+
             })
-            choiceSelected.select(true)
-            self.checkAnswer(choiceSelected.choice)
+            self.checkAnswer(choiceSelected)
+        } else if (choiceSelected.clicked() === true) {
+       
+                
+                self.correct(self.correct() - 1)
+                choiceSelected.clicked(false)
+                self.currentQuestion().choices().forEach(function (choice) {
+                    choice.select(true)
 
+                })
+                self.currentQuestion().correct(false)
 
-        } else if (self.click() >= 2) {
-            self.currentQuestion().choices().forEach(function (choice) {
-                choice.select(true)
-            })
-
+    
         }
 
+
+    }
+
+    self.submit=function(){
+        self.duringQuiz(false)
+  self.final(true);
 
     }
    
@@ -72,6 +91,8 @@ var choicesViewModel = function (choice) {
     var self = this;
     self.choice = choice;
     self.select = ko.observable(true);
+    self.clicked = ko.observable(false)
+
 
 }
 
@@ -83,6 +104,7 @@ var quizViewModel = function (question, choiceOptions, answer) {
     self.click = 0
     self.question = question;
     self.choices = ko.observableArray([])
+    self.correct = ko.observable(false)
     for (var i = 0; i < choiceOptions.length; i++) {
         self.choices().push(new choicesViewModel(choiceOptions[i]));
     }
@@ -92,37 +114,5 @@ var quizViewModel = function (question, choiceOptions, answer) {
 var finalScore = function(question,checked){
 
 }
-
-
-
-//found this and thought maybe we want to try a custom binding for our dbl click 
-
-// ko.bindingHandlers.click = {
-//     init: function(element, valueAccessor, allBindingsAccessor, viewModel, context) {
-//         var accessor = valueAccessor();
-//         var clicks = 0;
-//         var timeout = 200;
-
-//         $(element).click(function(event) {
-//             if(typeof(accessor) === 'object') {
-//                 var single = accessor.single;
-//                 var double = accessor.double;
-//                 clicks++;
-//                 if (clicks === 1) {
-//                     setTimeout(function() {
-//                         if(clicks === 1) {
-//                             single.call(viewModel, context.$data, event);
-//                         } else {
-//                             double.call(viewModel, context.$data, event);
-//                         }
-//                         clicks = 0;
-//                     }, timeout);
-//                 }
-//             } else {
-//                 accessor.call(viewModel, context.$data, event);
-//             }
-//         });
-//     }
-// };
 
 ko.applyBindings(quizModelView);

@@ -45,47 +45,67 @@
     2.  Question List for Question 1 = ql_q1
 -->
 
-    <div class="float-right">
+    <div data-bind="visible:duringQuiz" class="float-right">
         <ul data-bind="foreach:quiz">
-            <li data-bind="click:showQuestion($index())">Question <span data-bind="text:$index() + 1"></span></li>
+            <li data-bind=>Question <span data-bind="text:$index() + 1"></span></li>
         </ul>
     </div>
     <!-- End Question List Column-->
 
     <!--Card that contains question -->
-    <div class="questionCard card">
-        <div class="quiz">
-          <div class="text">
-            <p data-bind="text:currentQuestion().question"></p>
-        </div>   
-
-        
-        </div>
-       
-    </div>
-
-    <!--Answers-->
-    <div data-bind="foreach:currentQuestion().choices" class="answerList">
-        <button data-bind="click:selected, enable:select, css:{selected:select}" class="answerButton">
-            <p data-bind="text:choice"></p>
-         </button>
-    </div>
-
-    <!--footer-->
-    <div class="footer">
-        <div data-bind="click:previousQuestion" class="box float-left">
-            <div class="arrow">
-                <i class="fas fa-arrow-left"></i>
-            </div>
-        </div>
-        <div data-bind="click:nextQuestion()" class="box float-right">
-            <div class="arrow">
-                <i class="fas fa-arrow-right"></i>
+    <div data-bind="visible:duringQuiz">
+        <div class="questionCard card">
+            <div class="quiz">
+                <div class="text">
+                    <p data-bind="text:currentQuestion().question"></p>
+                </div>
             </div>
         </div>
 
+        <!--Answers-->
+        <div data-bind="foreach:currentQuestion().choices" class="answerList">
+            <button data-bind="click:selected, enable:select, css:{selected:select}" class="answerButton">
+                <p data-bind="text:choice"></p>
+            </button>
+        </div>
 
+        <!--footer-->
+        <div class="footer">
+            <div data-bind="click:previousQuestion" class="box float-left">
+                <div class="arrow">
+                    <i class="fas fa-arrow-left"></i>
+                </div>
+            </div>
+            <div data-bind="click:nextQuestion" class="box float-right">
+                <div class="arrow">
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+            </div>
+            <div data-bind="click:submit" class="box float-right">
+                <div class="arrow">
+                    <p>submit</p>
+                </div>
+            </div>
+
+        </div>
     </div>
+<div data-bind="visible:final">
+        <div class="card" style="margin-bottom: 20px;">
+         
+                    <div class="text">
+                        <h1>Congratulations you are a <span></span></h1>
+                        <p></p>
+                    </div>
+             
+            </div>
+        <div data-bind="foreach:quiz" class="answerList">
+                <div  data-bind="css:{highlight:correct}" class="final-card" >
+                    <div class="question-text"><p data-bind="text:question"></p></div>
+                </button>
+            </div>
+
+</div>
+</div>
     <script type="text/Javascript" src="knockout.js"></script>
     <script type="text/JavaScript" src="main.js"></script>
 </body>

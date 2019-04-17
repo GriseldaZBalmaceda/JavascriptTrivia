@@ -102,13 +102,27 @@ li::before {
     min-height: 335px;
 }
 
+.final-card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    margin-top: 20%;
+    margin: auto;
+    min-height: 100px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.question-text {
+    margin: auto;
+    padding: 40px;
+}
+
 .answerList {
     width: 50%;
     margin: auto;
 }
 
 .answerButton {
-     border:none;
+    border: none;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     border-radius: 0px;
     margin: 10px 0px 10px 0px;
@@ -117,14 +131,22 @@ li::before {
     width: 100%;
     transition-duration: 0.5s;
 }
-.answerButton:hover{
+
+.answerButton:hover {
     background-color: #2699FB;
     color: white
 }
+
 .text {
     text-align: center;
     padding: 20%;
 }
-.selected{
-  background-color: #2699FB
+
+.selected {
+    background-color: #2699FB;
+    color: white
+}
+
+.highlight {
+    background-color: red;
 }
