@@ -16,38 +16,9 @@
 
     <div class="title ">Javascript Trivia</div>
 
-    <!-- Begin Question List Column-->
-    <!-- Question List Section Created by Don Cousar 3/20/2019
-
-    Assumptions:
-
-    1. Assuming the idea is to populate the img src using css & JavaScript.
-
-        i.e. Question Mark = Not Answered Yet
-             Check Mark = Question Answered and Correct
-             X = Question Answered and Incorrect
-         
-        css example of how to replace images using css
-            see: https://css-tricks.com/replace-the-image-in-an-img-with-css/
-
-    2.  Using JavaScript, I'm assuming we will change the style and image of each question based on 
-        the answer submitted.
-
-        e.g. Opacity change of text (Question X) and ? image replaced with checkmark or X before the text
-
-    3.  I'm assuming Zelda will create CSS and locate images for the ?, X, and checkmark to replace what I 
-        populated for <img class="QuestionListImage" src="foo"
-
-
-    Naming Convention.
-
-    1.  Images: Question List Image for Question 1 = ql_iq1
-    2.  Question List for Question 1 = ql_q1
--->
-
     <div data-bind="visible:duringQuiz" class="float-right">
         <ul data-bind="foreach:quiz">
-            <li data-bind=>Question <span data-bind="text:$index() + 1"></span></li>
+           <span data-bind="visible"></span> <li data-bind="click:showQuestion">Question <span data-bind="text:$index() + 1"></span></li>
         </ul>
     </div>
     <!-- End Question List Column-->
@@ -64,24 +35,24 @@
 
         <!--Answers-->
         <div data-bind="foreach:currentQuestion().choices" class="answerList">
-            <button data-bind="click:selected, enable:select, css:{selected:select}" class="answerButton">
+            <button data-bind="click:selected,css:{selected:select}" class="answerButton">
                 <p data-bind="text:choice"></p>
             </button>
         </div>
 
         <!--footer-->
         <div class="footer">
-            <div data-bind="click:previousQuestion" class="box float-left">
+            <div data-bind="visible:previous,click:previousQuestion" class="box float-left">
                 <div class="arrow">
                     <i class="fas fa-arrow-left"></i>
                 </div>
             </div>
-            <div data-bind="click:nextQuestion" class="box float-right">
+            <div data-bind="visible:next,click:nextQuestion" class="box float-right">
                 <div class="arrow">
                     <i class="fas fa-arrow-right"></i>
                 </div>
             </div>
-            <div data-bind="click:submit" class="box float-right">
+            <div data-bind="visible:submitButton,click:submit" class="box float-right">
                 <div class="arrow">
                     <p>submit</p>
                 </div>
@@ -93,13 +64,13 @@
         <div class="card" style="margin-bottom: 20px;">
          
                     <div class="text">
-                        <h1>Congratulations you are a <span></span></h1>
+                        <h1>Congratulations you are a <span data-bind="text:finalMessage"></span></h1>
                         <p></p>
                     </div>
              
             </div>
         <div data-bind="foreach:quiz" class="answerList">
-                <div  data-bind="css:{highlight:correct}" class="final-card" >
+                <div  data-bind="css:{highlight:inCorrect}" class="final-card" >
                     <div class="question-text"><p data-bind="text:question"></p></div>
                 </button>
             </div>

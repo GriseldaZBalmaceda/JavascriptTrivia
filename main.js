@@ -1,8 +1,14 @@
 var quizModelView = function () {
     self = this;
     self.index = ko.observable(0);
-    self.duringQuiz=ko.observable(true)
-    self.final=ko.observable(false)
+    self.duringQuiz = ko.observable(true)
+    self.final = ko.observable(false)
+    self.previous = ko.observable(false)
+    self.next = ko.observable(true)
+    self.submitButton = ko.observable(false)
+    self.incorrectAnswers = ko.observable(0)
+    self.finalScore = ko.observable(10)
+    self.finalMessage = ko.observable('Testing')
     self.quiz = [
         new quizViewModel("In JavaScript you cannot use what reserved words as variables, labels, or function names?", ["Reserved Words", "Strings", "Data Types", "Number"], "Reserved Words"),
         new quizViewModel("Which of the following is used for declaring variables in a function, but is block scoped?", ["Null", "var", "const", "let"], "let"),
@@ -15,42 +21,71 @@ var quizModelView = function () {
         new quizViewModel("Which of the following is used to add an HTML element using JavaScript?", ["document.createElement(element)", "document.appendChild(element)", "document.write(text)", "document.replaceChild(new, old)"], "document.appendChild(element)"),
         new quizViewModel("In JavaScript, which of the following is used to comment lines:", ["/* and */", "//", "Data Types", "<!-- and  -->"], "<!-- and  -->"),
     ];
-    self.guesses = ko.observableArray([]);
-    self.correct = ko.observable(0)
     self.click = ko.observable(false)
-
     self.currentQuestion = ko.observable(self.quiz[0]);
     self.currentAnswer = ko.observable(self.quiz[0].answer)
-
     self.checkAnswer = function (guess) {
         if (guess.choice === self.currentAnswer()) {
-            
-            self.correct(self.correct() + 1)
-            console.log('correct')
+
         } else {
-            self.currentQuestion().correct(true)
+            self.currentQuestion().inCorrect(true)
+        }
+    }
+    self.nextQuestion = function () {
+
+        self.index(self.index() + 1)
+        self.previous(true);
+        if (self.index() === 9) {
+            self.next(false);
+            self.submitButton(true)
+            self.currentQuestion(self.quiz[self.index()])
+            self.currentAnswer(self.quiz[self.index()].answer)
+        } else {
+            self.currentQuestion(self.quiz[self.index()])
+            self.currentAnswer(self.quiz[self.index()].answer)
         }
 
-    }
 
-    self.nextQuestion = function () {
-        self.currentQuestion(self.quiz[self.index()])
-        self.currentAnswer(self.quiz[self.index()].answer)
-        self.index(self.index() + 1)
+
+
+
+
     }
 
     self.previousQuestion = function () {
-
-        self.currentQuestion(self.quiz[self.index()])
-        self.currentAnswer(self.quiz[self.index()].answer)
         self.index(self.index() - 1)
+        if (self.index() === 0) {
+            self.previous(false)
+            self.currentQuestion(self.quiz[self.index()])
+            self.currentAnswer(self.quiz[self.index()].answer)
+        } else {
+            self.currentQuestion(self.quiz[self.index()])
+            self.currentAnswer(self.quiz[self.index()].answer)
+
+
+        }
+
+
     }
-    // self.showQuestion = function (index) {
-    //     self.index(index)
-    //     self.currentQuestion(self.quiz[self.index()])
-    //     self.currentAnswer(self.quiz[self.index()].answer)
-    
-    // }
+    self.showQuestion = function (question) {
+        self.currentQuestion(question)
+        self.currentAnswer(question.answer)
+        self.index(quiz.indexOf(question))
+        if (self.index() > 0) {
+            self.previous(true)
+        } else {
+            self.previous(false)
+        }
+        if (self.index() === 9) {
+            self.next(false)
+            self.submitButton(true)
+        } else {
+            self.next(true)
+            self.submitButton(false)
+        }
+    }
+
+
 
     self.selected = function (choiceSelected) {
         if (choiceSelected.clicked() === false) {
@@ -63,34 +98,36 @@ var quizModelView = function () {
             })
             self.checkAnswer(choiceSelected)
         } else if (choiceSelected.clicked() === true) {
-       
-                
-                self.correct(self.correct() - 1)
-                choiceSelected.clicked(false)
-                self.currentQuestion().choices().forEach(function (choice) {
-                    choice.select(true)
+            choiceSelected.clicked(false)
+            self.currentQuestion().choices().forEach(function (choice) {
+                choice.select(true)
+            })
+            self.currentQuestion().inCorrect(false)
 
-                })
-                self.currentQuestion().correct(false)
-
-    
         }
-
-
     }
 
-    self.submit=function(){
+    self.submit = function () {
         self.duringQuiz(false)
-  self.final(true);
+        self.final(true);
+        for (var i = 0; i < self.quiz.length; i++) {
+            if (self.quiz[i].inCorrect() === true) {
+                self.incorrectAnswers(self.incorrectAnswers() + 1)
+            }
+        }
+        self.finalScore(self.finalScore() - self.incorrectAnswers())
 
+        if (self.finalScore()) {
+
+        }
     }
-   
+
 }
 
 var choicesViewModel = function (choice) {
     var self = this;
     self.choice = choice;
-    self.select = ko.observable(true);
+    self.select = ko.observable(false);
     self.clicked = ko.observable(false)
 
 
@@ -104,14 +141,14 @@ var quizViewModel = function (question, choiceOptions, answer) {
     self.click = 0
     self.question = question;
     self.choices = ko.observableArray([])
-    self.correct = ko.observable(false)
+    self.inCorrect = ko.observable(false)
     for (var i = 0; i < choiceOptions.length; i++) {
         self.choices().push(new choicesViewModel(choiceOptions[i]));
     }
 }
 
 
-var finalScore = function(question,checked){
+var finalScore = function (question, checked) {
 
 }
 
