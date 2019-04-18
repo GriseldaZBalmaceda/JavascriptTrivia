@@ -8,6 +8,7 @@ var quizModelView = function () {
     self.submitButton = ko.observable(false)
     self.incorrectAnswers = ko.observable(0)
     self.finalScore = ko.observable(10)
+    self.percentage=ko.observable(0)
     self.finalMessage = ko.observable('Testing')
     self.quiz = [
         new quizViewModel("In JavaScript you cannot use what reserved words as variables, labels, or function names?", ["Reserved Words", "Strings", "Data Types", "Number"], "Reserved Words"),
@@ -117,9 +118,18 @@ var quizModelView = function () {
         }
         self.finalScore(self.finalScore() - self.incorrectAnswers())
 
-        if (self.finalScore()) {
-
+        if(self.finalScore()>=8){
+            self.finalMessage('Master')
+        }else if(self.finalScore()>=6&&self.finalScore()<8){
+            self.finalMessage('Novice')
+        }else{
+            self.finalMessage('Beginner')
         }
+        
+        self.percentage((self.finalScore()/10)*100 + '%')
+
+
+
     }
 
 }
@@ -145,11 +155,6 @@ var quizViewModel = function (question, choiceOptions, answer) {
     for (var i = 0; i < choiceOptions.length; i++) {
         self.choices().push(new choicesViewModel(choiceOptions[i]));
     }
-}
-
-
-var finalScore = function (question, checked) {
-
 }
 
 ko.applyBindings(quizModelView);
