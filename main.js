@@ -128,7 +128,7 @@ var quizModelView = function () {
         self.finalScore(self.finalScore() - self.incorrectAnswers())
 
         if(self.finalScore()>=8){
-            self.finalMessage('Master')
+            self.finalMessage('Expert')
         }else if(self.finalScore()>=6&&self.finalScore()<8){
             self.finalMessage('Novice')
         }else{
